@@ -24,6 +24,11 @@ const criarContato = ( contato ) => {
     campoContato.append(fotoContato, campoContato2)
     campoContato2.append(nomeContato,descricaoContato)
 
+    campoContato.addEventListener('click', () =>{
+        const cabecalho = document.getElementById('header__conversa')
+        cabecalho.replaceChild()
+    })
+
     return campoContato
 }
 
