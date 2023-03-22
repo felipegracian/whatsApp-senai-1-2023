@@ -27,6 +27,7 @@ const criarContato = (contato) => {
     campoContato2.append(nomeContato, descricaoContato)
 
     campoContato.addEventListener('click', () => {
+        
         const conversa = document.getElementById('right__side')
         conversa.replaceChild(carregarConversa(getIndex(contato, contatos)))
 
@@ -72,59 +73,57 @@ const criarHeaderConversa = (contato2Actvity) => {
 
 
 
-const carregarMensagens = (contato3Activity) => {
+const carregarMensagens = (contact) => {
+    const container = document.createElement('div')
+    container.classList.add('fundo__conversa')
 
-    const caixaDaMensagem = document.createElement('container')
-    caixaDaMensagem.classList.add('caixaMensagensDoContato')
+    const chats = document.getElementById('caixaDeMensagens')
 
-    console.log(contato3Activity)
+    contact.messages.forEach(function(message){
 
-    contato3Activity.messages.forEach(function (message) {
-        if (message.sender == 'me') {
+        if(message.sender == 'me'){
+            const messages__me = document.createElement('div')
+            messages__me.classList.add('caixaMinhasMensagens')
 
-            console.log(message.sender)
+            const message__text = document.createElement('p')
+            message__text.classList.add('my__message')
+            message__text.textContent = message.content
 
-            const mensagemDoContato = document.createElement('div')
-            mensagemDoContato.classList.add('my__message')
+            const message__time = document.createElement('p')
+            message__time.classList.add('time')
+            message__time.textContent = message.time
 
-            const textoDaMensagem = document.createElement('text')
-            textoDaMensagem.textContent = contato3Activity.content
+            messages__me.append(message__text,message__time)
+            container.append(messages__me)
 
-            const horaDaMensagem = document.createElement('p')
-            horaDaMensagem.classList.add('time')
-            horaDaMensagem.textContent = contato3Activity.time
 
-            mensagemDoContato.append(textoDaMensagem, horaDaMensagem)
-            caixaDaMensagem.append(mensagemDoContato)
+        } else{
+            const messages_contact = document.createElement('div')
+            messages_contact.classList.add('caixaMensagensDoContato')
 
-        } else {
+            const message__text = document.createElement('p')
+            message__text.classList.add('contact__message')
+            message__text.textContent = message.content
 
-            const mensagemDoContato = document.createElement('div')
-            mensagemDoContato.classList.add('contact__message')
+            const message__time = document.createElement('p')
+            message__time.classList.add('time')
+            message__time.textContent = message.time
 
-            const textoDaMensagem = document.createElement('text')
-            textoDaMensagem.textContent = contato3Activity.content
-
-            const horaDaMensagem = document.createElement('p')
-            horaDaMensagem.classList.add('time')
-            horaDaMensagem.textContent = contato3Activity.time
-
-            mensagemDoContato.append(textoDaMensagem, horaDaMensagem)
-            caixaDaMensagem.append(mensagemDoContato)
+            messages_contact.append(message__text, message__time)
+            container.append(messages_contact)
 
         }
+
     })
 
-    return caixaDaMensagem
-
-
-}
+    return container
+}   
 
 const getIndex = (contatoSelecionado, lista) => {
     return lista.indexOf(contatoSelecionado)
 }
 
-const carregarConversa = (indice) =>{
+const carregarConversa = (indice) => {
     const containerChat = document.getElementById('conversas')
 
     containerChat.replaceChildren(criarHeaderConversa(contatos[indice]), carregarMensagens(contatos[indice]))

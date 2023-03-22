@@ -170,4 +170,12 @@ footer{
     border-radius: 50%;
 }
 
+.caixaDeMensagens{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.75rem;
+}
+
 
