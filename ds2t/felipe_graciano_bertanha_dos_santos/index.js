@@ -1,6 +1,8 @@
 'use strict'
 
-import { contatos } from './contatos.js'
+
+import { getContatosUser } from './contatosApi.js'
+const contatos = await getContatosUser('11987876567')
 
 const criarContato = (contato) => {
 
